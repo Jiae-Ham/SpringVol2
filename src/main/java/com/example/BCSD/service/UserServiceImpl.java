@@ -1,40 +1,55 @@
 package com.example.BCSD.service;
 
 import com.example.BCSD.domain.User;
-import com.example.BCSD.repository.UserMapper;
+import com.example.BCSD.domain.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.sql.SQLException;
 import java.util.List;
 
 @Service
 public class UserServiceImpl implements UserService {
+    private final UserRepository userRepository;
+
     @Autowired
-    UserMapper userMapper;
-
-    @Override
-    public User insertUser(User user) throws SQLException {
-        return userMapper.insertUser(user);
+    public UserServiceImpl(UserRepository userRepository) {
+        this.userRepository = userRepository;
     }
 
     @Override
-    public List<User> getAllUsers() throws SQLException {
-        return userMapper.getAllUsers();
+    public User insertUser(User user) {
+        userRepository.save(User.builder()
+                .userId(user.getUserId())
+                .userName(user.getUserName())
+                .userPw(user.getUserPw())
+                .build());
+        return user;
+
     }
 
     @Override
-    public User getUserByUserId(String userId) throws SQLException {
-        return userMapper.getUserByUserId(userId);
+    public List<User> getAllUsers() {
+        return userRepository.findAll();
     }
 
     @Override
-    public void updateUserPw(String userId, User user) throws SQLException {
-        userMapper.updateUserPw(userId, user);
+    public User getUserByUserId(Integer id) {
+        return userRepository.findById(id).orElse(new User(null, null, null));
     }
 
     @Override
-    public void deleteUser(String userId) throws SQLException {
-        userMapper.deleteUser(userId);
+    public void updateUser(String userid, User user) {
+        userRepository.save(User.builder()
+                .userId(userid)
+                .userName(user.getUserName())
+                .userPw(user.getUserPw())
+                .build());
     }
+
+    @Override
+    public void deleteUser(Integer id) {
+        userRepository.deleteById(id);
+
+    }
+
 }

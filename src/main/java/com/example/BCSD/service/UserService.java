@@ -2,17 +2,16 @@ package com.example.BCSD.service;
 
 import com.example.BCSD.domain.User;
 
-import java.sql.SQLException;
 import java.util.List;
 
 public interface UserService {
-    public User insertUser(User user) throws SQLException;
+    User insertUser(User user);
 
-    public List<User> getAllUsers() throws SQLException;
+    List<User> getAllUsers();
 
-    public User getUserByUserId(String userId) throws SQLException;
+    User getUserByUserId(Integer id);
 
-    public void updateUserPw(String userId, User user) throws SQLException;
+    void updateUser(String userid, User user);
 
-    public void deleteUser(String userId) throws SQLException;
+    void deleteUser(Integer id);
 }
