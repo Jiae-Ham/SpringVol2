@@ -40,7 +40,7 @@ public class UserServiceImpl implements UserService {
     @Override
     public void updateUser(String userid, User user) {
         userRepository.save(User.builder()
-                .userId(userid)
+                .userId(user.getUserId())
                 .userName(user.getUserName())
                 .userPw(user.getUserPw())
                 .build());
