@@ -13,8 +13,8 @@ public class User {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
 
-    @Column(name = "userId")
-    private String userId;
+    @Column(name = "loginId")
+    private String loginId;
 
     @Column(name = "userName")
     private String userName;
@@ -22,9 +22,14 @@ public class User {
     @Column(name = "userPw")
     private String userPw;
 
+    //private UserRole role;
+
+    // OAuth 로그인에 사용
+    //private String provider;
+    //private String providerId;
     @Builder
-    public User(String userId, String userName, String userPw) {
-        this.userId = userId;
+    public User(String loginId, String userName, String userPw) {
+        this.loginId = loginId;
         this.userName = userName;
         this.userPw = userPw;
     }
